@@ -1,0 +1,234 @@
+toy <-"
+name: 1
+2:
+  5:
+    leaf:
+  6:
+    leaf:
+  7:
+    leaf:
+3:
+  8:
+    leaf:
+  9:
+    leaf:
+  10:
+    leaf:
+4:
+  11:
+    leaf:
+  12:
+    leaf:
+  13:
+    leaf:
+"
+
+
+statistics <- "
+name: Statistics
+Bhattacharya:
+   Pallavi:
+    student:
+   Allyson:
+    student:
+   Satwik:
+    student:
+Huang:
+  Jiangyuan:
+    student:
+  Guanxun:
+    student:
+  Huiling:
+    student:
+  Yan:
+    student:
+  Xiaomeng:
+    student:
+Gaynanova:
+  Alex:
+    student:
+  Yunfeng:
+    student:
+  Dongbang:
+    student:
+Katzfuss:
+  Myeongjong:
+    student:
+  Jingjie:
+    student:
+  Marcin:
+    student:
+  Brian:
+    student:
+Pati:
+  Shuang:
+    student:
+  Sean:
+    student:
+  Indrajt:
+    student:
+Wong:
+  Lukang:
+    student:
+  Jiayi:
+    student:
+  Ya:
+    student:
+"
+
+statistics_adv <- "
+name: Statistics
+Bhattacharya:
+   Pallavi:
+    1:
+      leaf:
+    2:
+      leaf:
+    3:
+      leaf:
+   Allyson:
+    4:
+      leaf:
+    5:
+      leaf:
+    6:
+      leaf:
+   Satwik:
+    7:
+      leaf:
+    8:
+      leaf:
+    9:
+      leaf:
+Huang:
+  Jiangyuan:
+    10:
+      leaf:
+    11:
+      leaf:
+    12:
+      leaf:
+  Guanxun:
+    13:
+      leaf:
+    14:
+      leaf:
+    15:
+      leaf:
+  Huiling:
+    16:
+      leaf:
+    17:
+      leaf:
+    18:
+      leaf:
+  Yan:
+    19:
+      leaf:
+    20:
+      leaf:
+    21:
+      leaf:
+  Xiaomeng:
+    22:
+      leaf:
+    23:
+      leaf:
+    24:
+      leaf:
+Gaynanova:
+  Alex:
+    25:
+      leaf:
+    26:
+      leaf:
+    27:
+      leaf:
+  Yunfeng:
+    28:
+      leaf:
+    29:
+      leaf:
+    30:
+      leaf:
+  Dongbang:
+    31:
+      leaf:
+    32:
+      leaf:
+    33:
+      leaf:
+Katzfuss:
+  Myeongjong:
+    34:
+      leaf:
+    35:
+      leaf:
+    36:
+      leaf:
+  Jingjie:
+    37:
+      leaf:
+    38:
+      leaf:
+    39:
+      leaf:
+  Marcin:
+    40:
+      leaf:
+    41:
+      leaf:
+    42:
+      leaf:
+  Brian:
+    43:
+      leaf:
+    44:
+      leaf:
+    45:
+      leaf:
+Pati:
+  Shuang:
+    46:
+      leaf:
+    47:
+      leaf:
+    48:
+      leaf:
+  Sean:
+    49:
+      leaf:
+    50:
+      leaf:
+    51:
+      leaf:
+  Indrajt:
+    52:
+      leaf:
+    53:
+      leaf:
+    54:
+      leaf:
+Wong:
+  Lukang:
+    55:
+      leaf:
+    56:
+      leaf:
+    57:
+      leaf:
+  Jiayi:
+    58:
+      leaf:
+    59:
+      leaf:
+    60:
+      leaf:
+  Ya:
+    61:
+      leaf:
+    62:
+      leaf:
+    63:
+      leaf:
+"
