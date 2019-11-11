@@ -1,5 +1,10 @@
 # define poincare distance between two vectors.
 getPoincareDistanceVec <- function(theta_i, theta_j) { # input : two vectors
+  STABILITY <- 1e-4
+  alpha <- 1 - as.numeric(crossprod(theta_i))
+  beta <- 1 - as.numeric(crossprod(theta_j))
+  gamma <- 1 + 2 / (alpha * beta + STABILITY) * as.numeric(crossprod(theta_i - theta_j))
+  distance <- acosh(gamma)
 
   return(distance) # d(theta_i, theta_j)
 }
