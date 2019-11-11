@@ -32,6 +32,12 @@ getPoincareDistance <- function(theta) { # input : matrix theta
 # projection function
 proj <- function(theta_i) { #input : should be one row(vector) of theta matrix
 
+  epsilon <- 1e-5
+
+  if (as.numeric(crossprod(theta_i)) >= 1) {
+    theta_i <- theta_i / sqrt(as.numeric(crossprod(theta_i))) - epsilon
+  }
+
   return(theta_i)
 }
 
