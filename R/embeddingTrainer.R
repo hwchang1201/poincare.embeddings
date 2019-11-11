@@ -44,9 +44,17 @@ proj <- function(theta_i) { #input : should be one row(vector) of theta matrix
 
 #get Euclidean Gradient w.r.t theta
 getDistanceGradVec <- function(theta_i, theta_j) {
+  STABILITY = 1e-5
+  alpha <- 1 - as.numeric(crossprod(theta_i))
+  beta <- 1 - as.numeric(crossprod(theta_j))
+  gamma <- 1 + 2 / (alpha * beta) * as.numeric(crossprod(theta_i - theta_j))
+
+  distanceGradVec <- 4 / (beta * sqrt(gamma^2 - 1) + STABILITY) *
+    ((as.numeric(crossprod(theta_j)) - 2 * as.numeric(crossprod(theta_i, theta_j)) + 1)/ (alpha^2 + STABILITY) * theta_i - theta_j / (alpha + STABILITY))
 
   return(distanceGradVec)
 }
+
 
 # embedding trainer -> output : trained theta.
 embeddingTrainer <- function(POS, NEG, entity, theta_dim=2, N_epoch=100, lr=0.2, n_neg=4){
