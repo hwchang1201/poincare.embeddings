@@ -11,6 +11,19 @@ getPoincareDistanceVec <- function(theta_i, theta_j) { # input : two vectors
 
 # define poincare distance in matrix.
 getPoincareDistance <- function(theta) { # input : matrix theta
+  STABILITY <- 1e-5
+  N <- dim(theta)[1] # data point of theta.
+  p <- dim(theta)[2] # number of dimension of embedding space.
+
+  rowWiseDuplicate <- do.call(rbind, replicate(N, t(theta), simplify=FALSE))
+  columnWiseDuplicate <- do.call(cbind, replicate(N, as.vector(t(theta)), simplify=FALSE))
+  diffSquare <- (rowWiseDuplicate - columnWiseDuplicate)^2
+
+  crossDistance <- matrix(rep(0, N * N), N, N)
+  for (i in 1:N){
+    crossDistance[i, ] <- colSums(diffSquare[(p*i-(p-1)):(p*i), ])
+  }
+  distanceMtx <- acosh(1 + 2 * crossDistance / (tcrossprod(1 + STABILITY - rowSums(theta^2))))
 
   return(distanceMtx) # N by N distance matrix with ij element = d(theta_i, theta_j)
 }
