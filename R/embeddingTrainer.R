@@ -1,4 +1,14 @@
 # define poincare distance between two vectors.
+#' Poincare distance between two vectors
+#'
+#' @param theta_i - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
+#' @param theta_j - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
+#'
+#' @return A poincare distance between theta_i and theta_j.
+#' @export
+#'
+#' @examples getPoincareDistanceVec(c(0, 0), c(0.1, 0.5))
+#' @examples getPoincareDistanceVec(c(0.4, 0), c(0.1, 0.5))
 getPoincareDistanceVec <- function(theta_i, theta_j) { # input : two vectors
   STABILITY <- 1e-4
   alpha <- 1 - as.numeric(crossprod(theta_i))
@@ -8,8 +18,15 @@ getPoincareDistanceVec <- function(theta_i, theta_j) { # input : two vectors
 
   return(distance) # d(theta_i, theta_j)
 }
-
 # define poincare distance in matrix.
+#' Poincare distance in matrix
+#'
+#' @param theta - A N x M matrix with N : the number of entities and M : dimension of the embedding space.
+#'
+#' @return A N x N poincare distance matrix whose (i, j) element is poincare distance between theta_i and theta_j.
+#' @export
+#'
+#' @examples getPoincareDistance(matrix(stats::rnorm(100), 5, 20))
 getPoincareDistance <- function(theta) { # input : matrix theta
   STABILITY <- 1e-5
   N <- dim(theta)[1] # data point of theta.
@@ -30,12 +47,20 @@ getPoincareDistance <- function(theta) { # input : matrix theta
 
 
 # projection function
+#' Projection function: to make thetas stay in the unit ball
+#'
+#' @param  - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
+#'
+#' @return - A N x 1 vector inside the unit ball.
+#' @export
+#'
+#' @examples proj(c(2,2))
 proj <- function(theta_i) { #input : should be one row(vector) of theta matrix
 
-  epsilon <- 1e-5
+  STABILITY <- 1e-5
 
   if (as.numeric(crossprod(theta_i)) >= 1) {
-    theta_i <- theta_i / sqrt(as.numeric(crossprod(theta_i))) - epsilon
+    theta_i <- theta_i / sqrt(as.numeric(crossprod(theta_i))) - STABILITY
   }
 
   return(theta_i)
@@ -43,6 +68,15 @@ proj <- function(theta_i) { #input : should be one row(vector) of theta matrix
 
 
 #get Euclidean Gradient w.r.t theta
+#' Euclidean Gradient of distance function with respect to theta_i
+#'
+#' @param theta_i - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
+#' @param theta_j - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
+#'
+#' @return d(dist(theta_i, theta_j)) / d(theta_i) : A N x 1 vector.
+#' @export
+#'
+#' @examples getDistanceGradVec(c(0, 0), c(0.1, 0.5))
 getDistanceGradVec <- function(theta_i, theta_j) {
   STABILITY = 1e-5
   alpha <- 1 - as.numeric(crossprod(theta_i))
@@ -57,7 +91,24 @@ getDistanceGradVec <- function(theta_i, theta_j) {
 
 
 # embedding trainer -> output : trained theta.
-embeddingTrainer <- function(POS, NEG, entity, theta_dim=2, N_epoch=100, lr=0.2, n_neg=4){
+#' Poincare-embedding trainer
+#'
+#' @param POS - A 2-row positive relation matrix that contains positive relation entities columnwisely.
+#' @param NEG - A 2-row negative relation matrix that contains negative relation entities columnwisely.
+#' @param entity - A vector of all the entities in the tree-shape dataset.
+#' @param theta_dim - The dimension of the embedding space.
+#' @param N_epoch - The number of epochs.
+#' @param lr - The learning rate.
+#' @param n_neg - The number of negative samples for each iteration.
+#'
+#' @return A trained matrix theta.
+#' @export
+#'
+#' @examples statistics_yaml <- yaml::yaml.load(statistics)
+#' @examples statistics_tree <- data.tree::as.Node(statistics_yaml)
+#' @examples dataset <- dataLoader(statistics_tree)
+#' @examples embeddingTrainer(dataset$POS, dataset$NEG, dataset$entity, 2, 100, 0.001, 5)
+embeddingTrainer <- function(POS, NEG, entity, theta_dim=2, N_epoch=100, lr=0.001, n_neg=4){
 
   # Initializing theta
   theta <- matrix(runif(theta_dim * length(entity), min = -0.001, max = 0.001), ncol = theta_dim)
