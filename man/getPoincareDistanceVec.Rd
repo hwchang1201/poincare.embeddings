@@ -19,5 +19,5 @@ Poincare distance between two vectors
 }
 \examples{
 getPoincareDistanceVec(c(0, 0), c(0.1, 0.5))
-
+getPoincareDistanceVec(c(0.4, 0), c(0.1, 0.5))
 }

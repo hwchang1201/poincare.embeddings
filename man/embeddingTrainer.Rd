@@ -29,5 +29,8 @@ A trained matrix theta.
 Poincare-embedding trainer
 }
 \examples{
-embeddingTrainer(POS, NEG, entity, 2, 100, 0.001, 4)
+statistics_yaml <- yaml::yaml.load(statistics)
+statistics_tree <- data.tree::as.Node(statistics_yaml)
+dataset <- dataLoader(statistics_tree)
+embeddingTrainer(dataset$POS, dataset$NEG, dataset$entity, 2, 100, 0.001, 5)
 }

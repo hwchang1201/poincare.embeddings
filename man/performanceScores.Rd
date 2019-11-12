@@ -20,5 +20,11 @@ MAP : Mean average precision.
 Title
 }
 \examples{
-performanceScores(distanceMtx, POS)
+toy_yaml <- yaml::yaml.load(toy)
+toy_tree <- data.tree::as.Node(toy_yaml)
+toy_dataset <- dataLoader(toy_tree)
+emb <- poincareEmbeddings(toy_tree, 2, 50, 0.001, 5)
+distanceMtx <- getPoincareDistance(emb$theta)
+performanceScores(distanceMtx, toy_dataset$POS)
+
 }

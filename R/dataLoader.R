@@ -1,6 +1,3 @@
-# library("yaml")
-# library("data.tree")
-
 #' A function that convert a tree-shape dataset to the components for poincare-embeddings.
 #'
 #' @param dataset_tree - A tree-shape dataset with yaml format.

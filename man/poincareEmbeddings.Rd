@@ -2,13 +2,13 @@
 % Please edit documentation in R/main.R
 \name{poincareEmbeddings}
 \alias{poincareEmbeddings}
-\title{Title}
+\title{Poincare-embeddings}
 \usage{
-poincareEmbeddings(yamlDataset, theta_dim = 2, N_epoch = 50,
+poincareEmbeddings(dataset_tree, theta_dim = 2, N_epoch = 50,
   lr = 0.01, n_neg = 5)
 }
 \arguments{
-\item{yamlDataset}{- A tree-shape dataset with yaml format.}
+\item{dataset_tree}{- A tree-shape dataset from "data.tree"}
 
 \item{theta_dim}{- The dimension of the embedding space.}
 
@@ -26,8 +26,11 @@ MAP : Mean average precision.
 A 2-dimension plot only if theta_dim = 2.
 }
 \description{
-Title
+Poincare-embeddings
 }
 \examples{
-poincareEmbeddings(statistics, 2, 100, 0.01, 5)
+statistics_adv_yaml <- yaml::yaml.load(statistics_adv)
+statistics_adv_tree <- data.tree::as.Node(statistics_adv_yaml)
+poincareEmbeddings(statistics_adv_tree, theta_dim = 2, N_epoch = 200, lr = 0.005, n_neg = 10)
+
 }

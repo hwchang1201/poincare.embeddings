@@ -26,5 +26,10 @@ A 2-dimension plot with entity names and line segments between the entities with
 A 2-dimension plot for the poincare embeddings.
 }
 \examples{
-make2dPlot(theta, nameOfSample, POS, 100, 0.005, 5)
+toy_yaml <- yaml::yaml.load(toy)
+toy_tree <- data.tree::as.Node(toy_yaml)
+toy_dataset <- dataLoader(toy_tree)
+emb <- poincareEmbeddings(toy_tree, 2, 100, 0.001, 5)
+make2dPlot(emb$theta, toy_dataset$entity, toy_dataset$POS, 100, 0.001, 5)
+
 }

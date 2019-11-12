@@ -1,5 +1,4 @@
-# performanceScores: ranking and Mean average precision.
-#' Title
+#' PerformanceScores - Ranking and Mean average precision.
 #'
 #' @param distanceMtx - A N x N poincare distance matrix whose (i, j) element is poincare distance between theta_i and theta_j.
 #' @param POS - A 2-row positive relation matrix that contains positive relation entities columnwisely.
@@ -15,6 +14,8 @@
 #' @examples distanceMtx <- getPoincareDistance(emb$theta)
 #' @examples performanceScores(distanceMtx, toy_dataset$POS)
 #'
+
+# performanceScores: ranking and Mean average precision.
 performanceScores <- function(distanceMtx, POS) {
   N <- ncol(POS)
   rankingSum <- 0

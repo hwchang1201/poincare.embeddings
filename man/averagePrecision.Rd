@@ -21,4 +21,5 @@ Average precision
 }
 \examples{
 averagePrecision(2, c(1,0), c(0.5, 0.3))
+averagePrecision(2, c(0,1), c(0.5, 0.3))
 }
