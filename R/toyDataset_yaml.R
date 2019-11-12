@@ -1,3 +1,4 @@
+#' @export
 toy <-"
 name: 1
 2:
