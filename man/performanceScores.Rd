@@ -2,7 +2,7 @@
 % Please edit documentation in R/performanceScores.R
 \name{performanceScores}
 \alias{performanceScores}
-\title{Title}
+\title{PerformanceScores - Ranking and Mean average precision.}
 \usage{
 performanceScores(distanceMtx, POS)
 }
@@ -17,7 +17,7 @@ Ranking : The ranking of the true related entity.
 MAP : Mean average precision.
 }
 \description{
-Title
+PerformanceScores - Ranking and Mean average precision.
 }
 \examples{
 toy_yaml <- yaml::yaml.load(toy)
