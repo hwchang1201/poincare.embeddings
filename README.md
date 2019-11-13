@@ -57,7 +57,7 @@ IT:
 # make yaml format as an input.
 acme_yamlDataset <- yaml::yaml.load(acme)
 # Or make yaml file as an input.
-acme_yamlDataset <- yaml::read_yaml("./acme.yaml")
+# acme_yamlDataset <- yaml::read_yaml("./acme.yaml") # you should have a yaml file "acme.yaml""
 
 # then convert into tree structure.
 acme_treeDataset <- data.tree::as.Node(acme_yamlDataset)
@@ -94,8 +94,6 @@ print(acme_treeDataset)
 
 ```r
 # loading package "poincare.embeddings"
-require(devtools)
-devtools::install_github("hwchang1201/poincare.embeddings")
 library(poincare.embeddings)
 
 # use example dataset
