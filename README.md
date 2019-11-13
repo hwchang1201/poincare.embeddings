@@ -12,6 +12,15 @@ The Poincaré Embedding is concerned with the problem of learning hierarchical s
 
 There are several implementations on this algorithm written in python and C++. You could refer [facebookresearch](https://github.com/facebookresearch/poincare-embeddings) for python or [TatsuyaShirakawa](https://github.com/TatsuyaShirakawa/poincare-embedding) for C++. To the best of my knowledge,  it is not yet done on R.
 
+## Installation
+
+```r
+# loading package "poincare.embeddings"
+require(devtools)
+devtools::install_github("hwchang1201/poincare.embeddings")
+library(poincare.embeddings)
+```
+
 ## Data Preparation
 
 You should provide tree-structured dataset that you want to embed as an input in the main function. The data can be provided with either using .yaml format file or programmatical way by installing the package named "data.tree". This explanation and examples are from Introduction to [data.tree](https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html#trees-in-r)
