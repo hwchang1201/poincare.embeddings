@@ -24,7 +24,7 @@ name: 1
     leaf:
 "
 
-
+#' @export
 statistics <- "
 name: Statistics
 Bhattacharya:
@@ -77,6 +77,7 @@ Wong:
     student:
 "
 
+#' @export
 statistics_adv <- "
 name: Statistics
 Bhattacharya:
