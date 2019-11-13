@@ -54,9 +54,9 @@ getPoincareDistance <- function(theta) { # input : matrix theta
 #' @return - A N x 1 vector inside the unit ball.
 #' @export
 #'
-#' @examples proj(c(2,2))
+#' @examples project(c(2,2))
 # projection function
-proj <- function(theta_i) { #input : should be one row(vector) of theta matrix
+project <- function(theta_i) { #input : should be one row(vector) of theta matrix
 
   STABILITY <- 1e-5
 
@@ -153,13 +153,13 @@ embeddingTrainer <- function(POS, NEG, entity, theta_dim=2, N_epoch=100, lr=0.00
       }
 
       # update theta[pos[1], ], theta[pos[2], ].
-      theta[pos[1], ] <- proj(theta[pos[1], ] + lr  * (1 - as.numeric(crossprod(theta[pos[1], ])))^2 / 4 * der_p * getDistanceGradVec(theta[pos[1], ], theta[pos[2], ]))
-      theta[pos[2], ] <- proj(theta[pos[2], ] + lr  * (1 - as.numeric(crossprod(theta[pos[2], ])))^2 / 4 * der_p * getDistanceGradVec(theta[pos[2], ], theta[pos[1], ]))
+      theta[pos[1], ] <- project(theta[pos[1], ] + lr  * (1 - as.numeric(crossprod(theta[pos[1], ])))^2 / 4 * der_p * getDistanceGradVec(theta[pos[1], ], theta[pos[2], ]))
+      theta[pos[2], ] <- project(theta[pos[2], ] + lr  * (1 - as.numeric(crossprod(theta[pos[2], ])))^2 / 4 * der_p * getDistanceGradVec(theta[pos[2], ], theta[pos[1], ]))
 
       # update theta[pos[1], ], theta[neg[j], ], j = 1, 2, ..., n_neg.
       for (i in 1:n_neg) {
-        theta[neg_mat[, i][1], ] <- proj(theta[neg_mat[, i][1], ] + lr * (1 - as.numeric(crossprod(theta[neg_mat[, i][1], ])))^2 / 4 * der_neg[i] * getDistanceGradVec(theta[neg_mat[, i][1], ], theta[neg_mat[, i][2], ]))
-        theta[neg_mat[, i][2], ] <- proj(theta[neg_mat[, i][2], ] + lr * (1 - as.numeric(crossprod(theta[neg_mat[, i][2], ])))^2 / 4 * der_neg[i] * getDistanceGradVec(theta[neg_mat[, i][2], ], theta[neg_mat[, i][1], ]))
+        theta[neg_mat[, i][1], ] <- project(theta[neg_mat[, i][1], ] + lr * (1 - as.numeric(crossprod(theta[neg_mat[, i][1], ])))^2 / 4 * der_neg[i] * getDistanceGradVec(theta[neg_mat[, i][1], ], theta[neg_mat[, i][2], ]))
+        theta[neg_mat[, i][2], ] <- project(theta[neg_mat[, i][2], ] + lr * (1 - as.numeric(crossprod(theta[neg_mat[, i][2], ])))^2 / 4 * der_neg[i] * getDistanceGradVec(theta[neg_mat[, i][2], ], theta[neg_mat[, i][1], ]))
       }
     }
   }
