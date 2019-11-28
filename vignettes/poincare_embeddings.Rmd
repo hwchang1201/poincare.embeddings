@@ -56,7 +56,7 @@ There are several implementations on this algorithm written in python and C++. Y
 
 ### Installation {#install}
 
-```{r}
+```{r, results="hide"}
 # loading package "poincare.embeddings"
 require(devtools)
 devtools::install_github("hwchang1201/poincare.embeddings")
@@ -138,7 +138,7 @@ library(poincare.embeddings)
 # 1. use "toy"
 toy_yaml <- yaml::yaml.load(toy)
 toy_tree <- data.tree::as.Node(toy_yaml)
-emb <- poincareEmbeddings(toy_tree, theta_dim = 2, N_epoch = 200, lr = 0.005, n_neg = 10)
+emb <- poincareEmbeddings(toy_tree, theta_dim = 2, N_epoch = 200, lr = 0.05, n_neg = 10)
 
 print(paste("The ranking of the poincare embedding :", emb$rank))
 print(paste("The mean average precision of the poincare embedding :", emb$map))
@@ -148,7 +148,7 @@ print(paste("The mean average precision of the poincare embedding :", emb$map))
 # 2. use "statistics"
 statistics_yaml <- yaml::yaml.load(statistics)
 statistics_tree <- data.tree::as.Node(statistics_yaml)
-emb <- poincareEmbeddings(statistics_tree, theta_dim = 2, N_epoch = 200, lr = 0.005, n_neg = 10)
+emb <- poincareEmbeddings(statistics_tree, theta_dim = 2, N_epoch = 200, lr = 0.05, n_neg = 10)
 
 print(paste("The ranking of the poincare embedding :", emb$rank))
 print(paste("The mean average precision of the poincare embedding :", emb$map))
@@ -158,7 +158,7 @@ print(paste("The mean average precision of the poincare embedding :", emb$map))
 # 3. use "statistics_adv"
 statistics_adv_yaml <- yaml::yaml.load(statistics_adv)
 statistics_adv_tree <- data.tree::as.Node(statistics_adv_yaml)
-emb <- poincareEmbeddings(statistics_adv_tree, theta_dim = 2, N_epoch = 200, lr = 0.005, n_neg = 10)
+emb <- poincareEmbeddings(statistics_adv_tree, theta_dim = 2, N_epoch = 200, lr = 0.05, n_neg = 10)
 
 print(paste("The ranking of the poincare embedding :", emb$rank))
 print(paste("The mean average precision of the poincare embedding :", emb$map))
@@ -305,13 +305,13 @@ theta <- embeddingTrainer(dataset$POS, dataset$NEG, dataset$entity, theta_dim = 
 plot(theta, xlim = c(-1,1),ylim = c(-1,1),xlab = '',ylab = '')
 ```
 
-If we are doing 100 epochs, lr = 0.001, n_neg = 5.
+If we are doing 100 epochs, lr = 0.01, n_neg = 5.
 ```{r}
 library(poincare.embeddings)
 statistics_yaml <- yaml::yaml.load(statistics)
 statistics_tree <- data.tree::as.Node(statistics_yaml)
 dataset <- dataLoader(statistics_tree)
-theta <- embeddingTrainer(dataset$POS, dataset$NEG, dataset$entity, theta_dim = 2, N_epoch= 100, lr = 0.001, n_neg = 5)
+theta <- embeddingTrainer(dataset$POS, dataset$NEG, dataset$entity, theta_dim = 2, N_epoch= 100, lr = 0.01, n_neg = 5)
 plot(theta, xlim = c(-1,1),ylim = c(-1,1),xlab = '',ylab = '')
 ```
 
