@@ -1,6 +1,5 @@
 
 #' Poincare distance between two vectors.
-#'
 #' @param theta_i - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
 #' @param theta_j - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
 #'
@@ -114,7 +113,8 @@ embeddingTrainer <- function(POS, NEG, entity, theta_dim=2, N_epoch=100, lr=0.00
 
   # Initializing theta
   theta <- matrix(runif(theta_dim * length(entity), min = -0.001, max = 0.001), ncol = theta_dim)
-
+  # for the burn-in period.
+  lr = lr / 10
   for (epoch in 1:N_epoch) {
     # stochastic gradient method
     if (epoch == N_epoch %/% 10){
