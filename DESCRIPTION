@@ -14,7 +14,8 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports:
     data.tree (>= 0.7.8),
-    yaml (>= 2.2.0)
+    yaml (>= 2.2.0),
+    knitr
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
