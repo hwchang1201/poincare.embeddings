@@ -17,7 +17,7 @@ There are several implementations on this algorithm written in python and C++. Y
 ```r
 # loading package "poincare.embeddings"
 require(devtools)
-devtools::install_github("hwchang1201/poincare.embeddings")
+devtools::install_github("hwchang1201/poincare.embeddings", build_vignettes = T)
 library(poincare.embeddings)
 ```
 
