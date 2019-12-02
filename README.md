@@ -1,10 +1,10 @@
 # R-package implementation of Poincaré Embeddings for Learning Hierarchical Representations.
 
-This repository provides the R implementation of the paper ["Poincaré Embeddings for Learning Hierarchical Representations"](https://papers.nips.cc/paper/7213-poincare-embeddings-for-learning-hierarchical-representations) by Maximillian Nickel and Douwe Kiela, accepted as poster presentation at NIPS 2017.
+This repository provides the R implementation of the paper ["Poincaré Embeddings for Learning Hierarchical Representations"](https://papers.nips.cc/paper/7213-poincare-embeddings-for-learning-hierarchical-representations) by Maximillian Nickel and Douwe Kiela, accepted as poster presentation at NIPS 2017. **Please Check the vignette in the package to see the detailed idea and implementation of code.**
 
 ## What is the Poincaré Embedding?
 
-The Poincaré Embedding is concerned with the problem of learning hierarchical structure on the dataset. Phylogenetic tree or the tree of hypernymy are the examples of hierarchical structure dataset. The embedding space is a Poincaré ball, which is an unit ball equipped with poincaré distance. An advantage using Poincaré space compared to the Euclidean space as embedding space is that this space preserve tree-shaped structure well in relatively low dimension. This is because poincaré distance is intuitively continuous version of distance on tree-shaped dataset. We can take advantage of this property to make better visualization of tree-shaped dataset and provide efficient embeddings with comparably less dimensionality.
+The Poincaré Embedding is concerned with the problem of learning hierarchical structure on the dataset. Phylogenetic tree or the tree of hypernymy are the examples of hierarchical structure dataset. The embedding space is a Poincaré ball, which is an unit ball equipped with poincaré distance. An advantage using Poincaré space compared to the Euclidean space as embedding space is that this space preserve tree-shaped structure well in relatively low dimension. This is because poincaré distance is intuitively continuous version of distance on tree-shaped dataset. We can take advantage of this property to provide efficient embeddings with comparably less dimensionality.
 
 
 ## Previous Implementation
@@ -14,11 +14,19 @@ There are several implementations on this algorithm written in python and C++. Y
 
 ## Installation
 
+Before you install the package you may need to download ['Rtools'](https://cran.r-project.org/bin/windows/Rtools/), if you use windows operation system.
+
 ```r
 # loading package "poincare.embeddings"
 require(devtools)
 devtools::install_github("hwchang1201/poincare.embeddings", build_vignettes = T)
 library(poincare.embeddings)
+```
+
+**Please Check the vignette in the package to see the detailed idea and implementation of code.**
+
+```r
+vignette("poincare_embeddings")
 ```
 
 ## Data Preparation
@@ -100,15 +108,15 @@ library(poincare.embeddings)
 # 1. use "toy"
 toy_yaml <- yaml::yaml.load(toy)
 toy_tree <- data.tree::as.Node(toy_yaml)
-emb <- poincareEmbeddings(toy_tree, theta_dim = 2, N_epoch = 200, lr = 0.005, n_neg = 10)
+emb <- poincareEmbeddings(toy_tree, theta_dim = 2, N_epoch = 200, lr = 0.05, n_neg = 10)
 # 2. use "statistics"
 statistics_yaml <- yaml::yaml.load(statistics)
 statistics_tree <- data.tree::as.Node(statistics_yaml)
-emb <- poincareEmbeddings(statistics_tree, theta_dim = 2, N_epoch = 200, lr = 0.005, n_neg = 10)
+emb <- poincareEmbeddings(statistics_tree, theta_dim = 2, N_epoch = 200, lr = 0.05, n_neg = 10)
 # 3. use "statistics_adv"
 statistics_adv_yaml <- yaml::yaml.load(statistics_adv)
 statistics_adv_tree <- data.tree::as.Node(statistics_adv_yaml)
-emb <- poincareEmbeddings(statistics_adv_tree, theta_dim = 2, N_epoch = 200, lr = 0.005, n_neg = 10)
+emb <- poincareEmbeddings(statistics_adv_tree, theta_dim = 2, N_epoch = 200, lr = 0.05, n_neg = 10)
 
 print(paste("The ranking of the poincare embedding :", emb$rank))
 print(paste("The mean average precision of the poincare embedding :", emb$map))
