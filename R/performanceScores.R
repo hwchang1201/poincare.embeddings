@@ -1,4 +1,7 @@
-#' PerformanceScores - Ranking and Mean average precision.
+#' Getting Performance Scores : Ranking and Mean average precision.
+#'
+#' This function gives mean ranking and mean average precision of the trained embedding entities, which are two main performance measures of graph model.
+#' Please refer to 'vignette' to find detailed concepts of Ranking and Mean average precision.
 #'
 #' @param distanceMtx - A N x N poincare distance matrix whose (i, j) element is poincare distance between theta_i and theta_j.
 #' @param POS - A 2-row positive relation matrix that contains positive relation entities columnwisely.
@@ -36,7 +39,10 @@ performanceScores <- function(distanceMtx, POS) {
   return(list(ranking=ranking, MAP=MAP))
 }
 # Average Precision.
-#' Average precision
+#' Getting Average precision.
+#'
+#' This function gives average precision.
+#' Please refer to 'vignette' to find detailed concept of average precision.
 #'
 #' @param uNumToExamineK - The number of element of Yreal.
 #' @param Yreal - A N x 1 vector that indicates that "1" is true, "0" is false.

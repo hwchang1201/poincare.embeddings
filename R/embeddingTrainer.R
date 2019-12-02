@@ -1,5 +1,8 @@
-
-#' Poincare distance between two vectors.
+#' Calculating Poincare distance between two vectors.
+#'
+#' This function measures Poincare distance between two vectors.
+#' Please refer to 'vignette' to find the equation for the Poincare distance and detailed ideas.
+#'
 #' @param theta_i - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
 #' @param theta_j - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
 #'
@@ -18,8 +21,10 @@ getPoincareDistanceVec <- function(theta_i, theta_j) { # input : two vectors
 
   return(distance) # d(theta_i, theta_j)
 }
-#' Poincare distance in matrix
+#' Calculating Poincare distance matrix
 #'
+#' This function gives a matrix as an output, whose (i ,j) element measures Poincare distance between i-th row vector and j-th row vector of the input matrix.
+#' Please refer to 'vignette' to find the equation for the Poincare distance Matrix and detailed ideas.
 #' @param theta - A N x M matrix with N : the number of entities and M : dimension of the embedding space.
 #'
 #' @return A N x N poincare distance matrix whose (i, j) element is poincare distance between theta_i and theta_j.
@@ -46,8 +51,10 @@ getPoincareDistance <- function(theta) { # input : matrix theta
 }
 
 
-#' Projection function: to make thetas stay in the unit ball.
+#' Projection function.
 #'
+#' This function make each embedding point theta stay in the unit ball by normalize the vector when Euclidean norm of the point is greater than 1.
+#' Please refer to 'vignette' to find the equation for the projection function and detailed ideas.
 #' @param  - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
 #'
 #' @return - A N x 1 vector inside the unit ball.
@@ -67,7 +74,10 @@ project <- function(theta_i) { #input : should be one row(vector) of theta matri
 }
 
 
-#' Euclidean Gradient of distance function with respect to theta_i
+#' Calculating Euclidean Gradient of distance function with respect to theta_i
+#'
+#' This function calculates Euclidean Gradient of distance between theta_i and theta_j with respect to theta_i(the first argment of the function).
+#' Please refer to 'vignette' to find the equation for Euclidean Gradient function and detailed ideas.
 #'
 #' @param theta_i - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
 #' @param theta_j - A N x 1 vector with N : Embedding space dimension. Each of theta works as proxy of an entity in tree-shape dataset.
@@ -91,6 +101,9 @@ getDistanceGradVec <- function(theta_i, theta_j) {
 
 
 #' Poincare-embedding trainer
+#'
+#' This function performs optimization with respect to the objective function.
+#' Please refer to 'vignette' to find the equation for the objective function and detailed ideas(e.g. how to optimize).
 #'
 #' @param POS - A 2-row positive relation matrix that contains positive relation entities columnwisely.
 #' @param NEG - A 2-row negative relation matrix that contains negative relation entities columnwisely.

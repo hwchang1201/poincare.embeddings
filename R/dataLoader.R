@@ -1,4 +1,6 @@
-#' A function that convert a tree-shape dataset to the components for poincare-embeddings.
+#' Converting a tree-shape dataset to the components for poincare-embeddings.
+#'
+#' Please refer to 'vignette' to find detailed concepts of what this function does with detailed example.
 #'
 #' @param dataset_tree - A tree-shape dataset with yaml format.
 #'

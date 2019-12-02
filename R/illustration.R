@@ -1,8 +1,6 @@
-# library(ggplot2)
-
-#plot the illustration of relation. This is tentative!!
-
-#' A 2-dimension plot for the poincare embeddings.
+#' Plotting 2-dimension plot for the poincare embeddings.
+#'
+#' This function gives a 2 dimension plot with entity names and line segments between the entities with positive relation.
 #'
 #' @param theta - A N x 2 matrix. Each of the column corresponds to the entity subject to embed.
 #' @param nameOfSample - Name of the entity subject to embed.

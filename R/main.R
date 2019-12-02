@@ -1,5 +1,8 @@
 #' Poincare-embeddings
 #'
+#' This function is aggregated the functions to give the outputs, 2-D plot(if theta_dim = 2), ranking and MAP.
+#' Please refer to 'vignette' to find detailed implementation.
+#'
 #' @param dataset_tree - A tree-shape dataset from "data.tree"
 #' @param theta_dim - The dimension of the embedding space.
 #' @param N_epoch - The number of epochs.
