@@ -2,7 +2,7 @@
 % Please edit documentation in R/performanceScores.R
 \name{performanceScores}
 \alias{performanceScores}
-\title{PerformanceScores - Ranking and Mean average precision.}
+\title{Getting Performance Scores : Ranking and Mean average precision.}
 \usage{
 performanceScores(distanceMtx, POS)
 }
@@ -17,7 +17,8 @@ Ranking : The ranking of the true related entity.
 MAP : Mean average precision.
 }
 \description{
-PerformanceScores - Ranking and Mean average precision.
+This function gives mean ranking and mean average precision of the trained embedding entities, which are two main performance measures of graph model.
+Please refer to 'vignette' to find detailed concepts of Ranking and Mean average precision.
 }
 \examples{
 toy_yaml <- yaml::yaml.load(toy)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/embeddingTrainer.R
 \name{getPoincareDistance}
 \alias{getPoincareDistance}
-\title{Poincare distance in matrix}
+\title{Calculating Poincare distance matrix}
 \usage{
 getPoincareDistance(theta)
 }
@@ -13,7 +13,8 @@ getPoincareDistance(theta)
 A N x N poincare distance matrix whose (i, j) element is poincare distance between theta_i and theta_j.
 }
 \description{
-Poincare distance in matrix
+This function gives a matrix as an output, whose (i ,j) element measures Poincare distance between i-th row vector and j-th row vector of the input matrix.
+Please refer to 'vignette' to find the equation for the Poincare distance Matrix and detailed ideas.
 }
 \examples{
 getPoincareDistance(matrix(stats::rnorm(100), 5, 20))

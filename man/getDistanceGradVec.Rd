@@ -2,7 +2,7 @@
 % Please edit documentation in R/embeddingTrainer.R
 \name{getDistanceGradVec}
 \alias{getDistanceGradVec}
-\title{Euclidean Gradient of distance function with respect to theta_i}
+\title{Calculating Euclidean Gradient of distance function with respect to theta_i}
 \usage{
 getDistanceGradVec(theta_i, theta_j)
 }
@@ -15,7 +15,8 @@ getDistanceGradVec(theta_i, theta_j)
 d(dist(theta_i, theta_j)) / d(theta_i) : A N x 1 vector.
 }
 \description{
-Euclidean Gradient of distance function with respect to theta_i
+This function calculates Euclidean Gradient of distance between theta_i and theta_j with respect to theta_i(the first argment of the function).
+Please refer to 'vignette' to find the equation for Euclidean Gradient function and detailed ideas.
 }
 \examples{
 getDistanceGradVec(c(0, 0), c(0.1, 0.5))

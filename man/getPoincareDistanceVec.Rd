@@ -2,7 +2,7 @@
 % Please edit documentation in R/embeddingTrainer.R
 \name{getPoincareDistanceVec}
 \alias{getPoincareDistanceVec}
-\title{Poincare distance between two vectors}
+\title{Calculating Poincare distance between two vectors.}
 \usage{
 getPoincareDistanceVec(theta_i, theta_j)
 }
@@ -15,7 +15,8 @@ getPoincareDistanceVec(theta_i, theta_j)
 A poincare distance between theta_i and theta_j.
 }
 \description{
-Poincare distance between two vectors
+This function measures Poincare distance between two vectors.
+Please refer to 'vignette' to find the equation for the Poincare distance and detailed ideas.
 }
 \examples{
 getPoincareDistanceVec(c(0, 0), c(0.1, 0.5))

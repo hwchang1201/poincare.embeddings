@@ -2,7 +2,7 @@
 % Please edit documentation in R/illustration.R
 \name{make2dPlot}
 \alias{make2dPlot}
-\title{A 2-dimension plot for the poincare embeddings.}
+\title{Plotting 2-dimension plot for the poincare embeddings.}
 \usage{
 make2dPlot(theta, nameOfSample, POS, N_epoch, lr, n_neg)
 }
@@ -23,7 +23,7 @@ make2dPlot(theta, nameOfSample, POS, N_epoch, lr, n_neg)
 A 2-dimension plot with entity names and line segments between the entities with positive relation.
 }
 \description{
-A 2-dimension plot for the poincare embeddings.
+This function gives a 2 dimension plot with entity names and line segments between the entities with positive relation.
 }
 \examples{
 toy_yaml <- yaml::yaml.load(toy)

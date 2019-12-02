@@ -26,7 +26,8 @@ embeddingTrainer(POS, NEG, entity, theta_dim = 2, N_epoch = 100,
 A trained matrix theta.
 }
 \description{
-Poincare-embedding trainer
+This function performs optimization with respect to the objective function.
+Please refer to 'vignette' to find the equation for the objective function and detailed ideas(e.g. how to optimize).
 }
 \examples{
 statistics_yaml <- yaml::yaml.load(statistics)

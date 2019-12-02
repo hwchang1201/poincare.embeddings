@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataLoader.R
 \name{dataLoader}
 \alias{dataLoader}
-\title{A function that convert a tree-shape dataset to the components for poincare-embeddings.}
+\title{Converting a tree-shape dataset to the components for poincare-embeddings.}
 \usage{
 dataLoader(dataset_tree)
 }
@@ -17,7 +17,7 @@ POS - A 2-row positive relation matrix that contains positive relation entities 
 NEG - A 2-row negative relation matrix that contains negative relation entities columnwisely.
 }
 \description{
-A function that convert a tree-shape dataset to the components for poincare-embeddings.
+Please refer to 'vignette' to find detailed concepts of what this function does with detailed example.
 }
 \examples{
 statistics_yaml <- yaml::yaml.load(statistics)

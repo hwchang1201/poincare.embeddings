@@ -2,7 +2,7 @@
 % Please edit documentation in R/performanceScores.R
 \name{averagePrecision}
 \alias{averagePrecision}
-\title{Average precision}
+\title{Getting Average precision.}
 \usage{
 averagePrecision(uNumToExamineK, Yreal, Yhat)
 }
@@ -17,7 +17,8 @@ averagePrecision(uNumToExamineK, Yreal, Yhat)
 average precision
 }
 \description{
-Average precision
+This function gives average precision.
+Please refer to 'vignette' to find detailed concept of average precision.
 }
 \examples{
 averagePrecision(2, c(1,0), c(0.5, 0.3))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/embeddingTrainer.R
 \name{project}
 \alias{project}
-\title{Projection function: to make thetas stay in the unit ball.}
+\title{Projection function.}
 \usage{
 project(theta_i)
 }
@@ -13,7 +13,8 @@ project(theta_i)
 - A N x 1 vector inside the unit ball.
 }
 \description{
-Projection function: to make thetas stay in the unit ball.
+This function make each embedding point theta stay in the unit ball by normalize the vector when Euclidean norm of the point is greater than 1.
+Please refer to 'vignette' to find the equation for the projection function and detailed ideas.
 }
 \examples{
 project(c(2,2))

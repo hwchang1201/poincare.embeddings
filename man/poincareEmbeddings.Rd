@@ -26,7 +26,8 @@ MAP : Mean average precision.
 A 2-dimension plot only if theta_dim = 2.
 }
 \description{
-Poincare-embeddings
+This function is aggregated the functions to give the outputs, 2-D plot(if theta_dim = 2), ranking and MAP.
+Please refer to 'vignette' to find detailed implementation.
 }
 \examples{
 statistics_adv_yaml <- yaml::yaml.load(statistics_adv)
