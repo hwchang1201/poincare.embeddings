@@ -19,14 +19,15 @@ Before you install the package you may need to download ['Rtools'](https://cran.
 ```r
 # loading package "poincare.embeddings"
 require(devtools)
-devtools::install_github("hwchang1201/poincare.embeddings", build_vignettes = T)
+devtools::install_github("hwchang1201/poincare.embeddings", build = TRUE, build_opts = c("--no-resave-data", "--no-manual"))
 library(poincare.embeddings)
 ```
+
 
 **Please Check the vignette in the package to see the detailed idea and implementation of code.**
 
 ```r
-vignette("poincare_embeddings")
+browseVignettes("poincare.embeddings")
 ```
 
 ## Data Preparation
