@@ -20,22 +20,24 @@
 
 # performanceScores: ranking and Mean average precision.
 performanceScores <- function(distanceMtx, POS) {
-  N <- ncol(POS)
-  rankingSum <- 0
-  Av.Precision <- 0
+  N <- ncol(POS) # number of column of Positive set.
+  rankingSum <- 0 # to add the ranking of individual estimate.
+  Av.Precision <- 0 # to add the average precision of individual estimate.
   for (i in 1:N) {
     # sum of ranking
-    distanceMtx_i <- distanceMtx[POS[, i][2], ]
+    distanceMtx_i <- distanceMtx[POS[, i][2], ] # poincare distance matrix subsetted by i-th theta.
+    # nodes with sharing parent node should not be in the ranking.
     distanceMtx_i[matrix(POS[matrix(rep(POS[1, ] == POS[, i][1], 2), nrow = 2 , byrow = TRUE)], nrow = 2)[2,]] = Inf
+    # get the ranking of parent node of theta_i.
     rankingSum <- rankingSum + which(order(distanceMtx_i) == POS[, i][1])
 
     # Average precision
-    trueVec <- rep(0, ncol(distanceMtx))
-    trueVec[POS[, i][1]] <- 1
-    Av.Precision <- Av.Precision + averagePrecision(length(trueVec), trueVec, -distanceMtx_i)
+    trueVec <- rep(0, ncol(distanceMtx)) # we label the parent node of theta_i equal to 1, otherwise 0.
+    trueVec[POS[, i][1]] <- 1 # we label the parent node of theta_i equal to 1, otherwise 0.
+    Av.Precision <- Av.Precision + averagePrecision(length(trueVec), trueVec, -distanceMtx_i) # get average precision based on distance score.
   }
-  ranking <- rankingSum/N
-  MAP <- Av.Precision/N
+  ranking <- rankingSum/N #average
+  MAP <- Av.Precision/N #average
   return(list(ranking=ranking, MAP=MAP))
 }
 # Average Precision.
@@ -56,8 +58,8 @@ performanceScores <- function(distanceMtx, POS) {
 averagePrecision <- function (uNumToExamineK, Yreal, Yhat){
 
   # The real Y values is sorted by predicted Y values in decending order(decreasing=TRUE)
-  Yreal_sort_d <- Yreal[order(Yhat, decreasing=TRUE)]
-  Yreal_sort_d <- Yreal_sort_d[1:uNumToExamineK]
-  averagePrecision <- sum(cumsum(Yreal_sort_d) * Yreal_sort_d / seq_along(Yreal_sort_d)) / sum(Yreal_sort_d)
+  Yreal_sort_d <- Yreal[order(Yhat, decreasing=TRUE)] # The real Y values is sorted by predicted Y values in decending order(decreasing=TRUE)
+  Yreal_sort_d <- Yreal_sort_d[1:uNumToExamineK] #cut by uNumToExamineK, in our case use them all.
+  averagePrecision <- sum(cumsum(Yreal_sort_d) * Yreal_sort_d / seq_along(Yreal_sort_d)) / sum(Yreal_sort_d) # get average precision.
   return(averagePrecision)
 }
