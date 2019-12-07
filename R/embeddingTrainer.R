@@ -13,11 +13,11 @@
 #' @examples getPoincareDistanceVec(c(0.4, 0), c(0.1, 0.5))
 # define poincare distance between two vectors.
 getPoincareDistanceVec <- function(theta_i, theta_j) { # input : two vectors
-  STABILITY <- 1e-4
-  alpha <- 1 - as.numeric(crossprod(theta_i))
-  beta <- 1 - as.numeric(crossprod(theta_j))
-  gamma <- 1 + 2 / (alpha * beta + STABILITY) * as.numeric(crossprod(theta_i - theta_j))
-  distance <- acosh(gamma)
+  STABILITY <- 1e-5 # for gamma not to be Inf.
+  alpha <- 1 - as.numeric(crossprod(theta_i)) # write down the alpha in the paper.
+  beta <- 1 - as.numeric(crossprod(theta_j)) # write down the beta in the paper.
+  gamma <- 1 + 2 / (alpha * beta + STABILITY) * as.numeric(crossprod(theta_i - theta_j)) # write down the gamma in the paper.
+  distance <- acosh(gamma) # definition of poincare distance.
 
   return(distance) # d(theta_i, theta_j)
 }
@@ -33,20 +33,20 @@ getPoincareDistanceVec <- function(theta_i, theta_j) { # input : two vectors
 #' @examples getPoincareDistance(matrix(stats::rnorm(100), 5, 20))
 # define poincare distance in matrix.
 getPoincareDistance <- function(theta) { # input : matrix theta
-  STABILITY <- 1e-5
+  STABILITY <- 1e-5 # for distanceMtx not to be Inf.
   N <- dim(theta)[1] # data point of theta.
   p <- dim(theta)[2] # number of dimension of embedding space.
 
-  rowWiseDuplicate <- do.call(rbind, replicate(N, t(theta), simplify=FALSE))
-  columnWiseDuplicate <- do.call(cbind, replicate(N, as.vector(t(theta)), simplify=FALSE))
-  diffSquare <- (rowWiseDuplicate - columnWiseDuplicate)^2
+  rowWiseDuplicate <- do.call(rbind, replicate(N, t(theta), simplify=FALSE)) # row wise duplicate of the embedding theta.(N * p by N matrix)
+  columnWiseDuplicate <- do.call(cbind, replicate(N, as.vector(t(theta)), simplify=FALSE)) # column wise duplicate of the embedding theta. (N * p by N matrix)
+  diffSquare <- (rowWiseDuplicate - columnWiseDuplicate)^2 # (N * p by N matrix)
 
   crossDistance <- matrix(rep(0, N * N), N, N)
   for (i in 1:N){
-    crossDistance[i, ] <- colSums(diffSquare[(p*i-(p-1)):(p*i), ])
+    crossDistance[i, ] <- colSums(diffSquare[(p*i-(p-1)):(p*i), ]) # column sum of i-th row from i = 1, ..., N
   }
+  # N by N matrix whose (i, j) element is poincare distance between ith and jth
   distanceMtx <- acosh(1 + 2 * crossDistance / (tcrossprod(1 + STABILITY - rowSums(theta^2))))
-
   return(distanceMtx) # N by N distance matrix with ij element = d(theta_i, theta_j)
 }
 
@@ -64,10 +64,10 @@ getPoincareDistance <- function(theta) { # input : matrix theta
 # projection function
 project <- function(theta_i) { #input : should be one row(vector) of theta matrix
 
-  STABILITY <- 1e-5
+  STABILITY <- 1e-5 # for norm of theta_i not to be over 1.
 
   if (as.numeric(crossprod(theta_i)) >= 1) {
-    theta_i <- theta_i / sqrt(as.numeric(crossprod(theta_i))) - STABILITY
+    theta_i <- theta_i / sqrt(as.numeric(crossprod(theta_i))) - STABILITY # normalized theta_i if norm of theta_i is greater than 1.
   }
 
   return(theta_i)
@@ -88,11 +88,11 @@ project <- function(theta_i) { #input : should be one row(vector) of theta matri
 #' @examples getDistanceGradVec(c(0, 0), c(0.1, 0.5))
 #get Euclidean Gradient w.r.t theta
 getDistanceGradVec <- function(theta_i, theta_j) {
-  STABILITY = 1e-5
-  alpha <- 1 - as.numeric(crossprod(theta_i))
-  beta <- 1 - as.numeric(crossprod(theta_j))
-  gamma <- 1 + 2 / (alpha * beta) * as.numeric(crossprod(theta_i - theta_j))
-
+  STABILITY = 1e-5 # for distanceGradVec not to be Inf.
+  alpha <- 1 - as.numeric(crossprod(theta_i)) # alpha in paper
+  beta <- 1 - as.numeric(crossprod(theta_j)) # beta in paper
+  gamma <- 1 + 2 / (alpha * beta) * as.numeric(crossprod(theta_i - theta_j)) # gamma in paper
+  # refer the vinette for the equation.
   distanceGradVec <- 4 / (beta * sqrt(gamma^2 - 1) + STABILITY) *
     ((as.numeric(crossprod(theta_j)) - 2 * as.numeric(crossprod(theta_i, theta_j)) + 1)/ (alpha^2 + STABILITY) * theta_i - theta_j / (alpha + STABILITY))
 
@@ -124,23 +124,21 @@ getDistanceGradVec <- function(theta_i, theta_j) {
 # embedding trainer -> output : trained theta.
 embeddingTrainer <- function(POS, NEG, entity, theta_dim=2, N_epoch=100, lr=0.001, n_neg=4){
 
-  # Initializing theta
+  # Initializing theta(near zero, uniform distributed.)
   theta <- matrix(runif(theta_dim * length(entity), min = -0.001, max = 0.001), ncol = theta_dim)
-  # for the burn-in period.
-  lr = lr / 10
+  # for the burn-in period. For good initial angular layout.
+  lr = lr / 10 # reduced learning rate to 10% of it.
   for (epoch in 1:N_epoch) {
     # stochastic gradient method
     if (epoch == N_epoch %/% 10){
-      lr = 10 * lr
+      lr = 10 * lr # recover learning rate after (total epochs) / 10
     }
-    parent_node_length <- length(unique(POS[1, ]))
+    parent_node_length <- length(unique(POS[1, ])) # now many parent notes are.
     for (k in 1:parent_node_length) {
-      Pos_now <- matrix(POS[matrix(rep(POS[1, ] == k, 2), nrow = 2 , byrow = TRUE)], nrow = 2)
-      j <- sample(1:ncol(Pos_now), 1)
-      pos <- Pos_now[, j]
-      # # pick one vector from positive relation matrix
-      # #j <- sample(1:ncol(D), 1)
-      # pos <- D[, k]
+      #iterate one by one for each parent node.
+      Pos_now <- matrix(POS[matrix(rep(POS[1, ] == k, 2), nrow = 2 , byrow = TRUE)], nrow = 2) # subset the whole positive set for only k-th parent node.
+      j <- sample(1:ncol(Pos_now), 1) # randomly select one index of child node
+      pos <- Pos_now[, j] # coupled one parent and selected child positive relation
       # distance between theta[pos[1]], theta[pos[2]]
       dist_p <- getPoincareDistanceVec(theta[pos[1], ], theta[pos[2]])
       # derivative of loss function w.r.t distance between theta[pos[1]], theta[pos[2]]
@@ -152,9 +150,10 @@ embeddingTrainer <- function(POS, NEG, entity, theta_dim=2, N_epoch=100, lr=0.00
       # making neg_mat, dist_neg
       for (i in 1:n_neg) {
         # negative relation matrix subsetting by NEG[1, ] == pos[1]
-        Neg_now <- matrix(NEG[matrix(rep(NEG[1, ] == pos[1], 2), nrow = 2 , byrow = TRUE)], nrow = 2)
-        j <- sample(1:ncol(Neg_now), 1)
-        neg_mat[, i] <- Neg_now[, j]
+        Neg_now <- matrix(NEG[matrix(rep(NEG[1, ] == pos[1], 2), nrow = 2 , byrow = TRUE)], nrow = 2) # subset the whole negative set for only k-th(pos[1]) parent node.
+        j <- sample(1:ncol(Neg_now), 1) # randomly select one index negative relation
+        neg_mat[, i] <- Neg_now[, j] # make negative couple for pos[1] parent and selected node above.
+        # distance between pos[1] node and selected negative node.
         dist_neg[i] <- getPoincareDistanceVec(theta[neg_mat[, i][1], ], theta[neg_mat[, i][2], ])
       }
       # denominator of loss function.
@@ -162,6 +161,7 @@ embeddingTrainer <- function(POS, NEG, entity, theta_dim=2, N_epoch=100, lr=0.00
       # making der_neg : derivative of loss function w.r.t distance between theta[pos[1]], theta[neg[j]], j = 1, 2, ..., n_neg.
       der_neg <- rep(0, n_neg)
       for (i in 1:n_neg) {
+        # making der_neg : derivative of loss function w.r.t distance between theta[pos[1]], theta[neg[j]], j = 1, 2, ..., n_neg.
         der_neg[i] <- exp(-dist_neg[i])/denom
       }
 
