@@ -21,18 +21,15 @@
 make2dPlot <- function(theta, nameOfSample, POS, N_epoch, lr, n_neg){
   #exception for dimension x(it should be two-dimensional)
   N <- dim(theta)[1]
-  #plot the unit circle
-  tt <- seq(0,2*pi,length.out = 100)
-  xx <- cos(tt)
-  yy <- sin(tt)
-  #nameOfSample <- paste(1:N)
-
+  # plot the unit circle
+  tt <- seq(0,2*pi,length.out = 100) #seqence of hundred points from 0 to 2-phi .
+  xx <- cos(tt) # x cordinate of circle with the sequence above.
+  yy <- sin(tt) # y cordinate of circle with the sequence above.
   plot(xx,yy,type = "l",xlim = c(-1,1),ylim = c(-1,1),xlab = '',ylab = '',
        main=paste("2D embedding plot for N_epoch :",  N_epoch, ", lr :",lr,", n_neg :", n_neg, sep=" "))
-  par(new = TRUE)
+  par(new = TRUE) # "hold" the plot above.
   #plot the data points
-  plot(theta[ , 1],theta[ , 2],xlim = c(-1,1),ylim = c(-1,1),xlab = '',ylab = '')
-  text(theta[ , 1],theta[ , 2], labels = nameOfSample, cex = 0.7, pos = 3)
-  segments(theta[, 1][POS[1, ]], theta[ , 2][POS[1, ]], theta[, 1][POS[2, ]], theta[ , 2][POS[2, ]])
-
+  plot(theta[ , 1],theta[ , 2],xlim = c(-1,1),ylim = c(-1,1),xlab = '',ylab = '') # plot the embeddings on top of the circle.
+  text(theta[ , 1],theta[ , 2], labels = nameOfSample, cex = 0.7, pos = 3) # name of the entity.
+  segments(theta[, 1][POS[1, ]], theta[ , 2][POS[1, ]], theta[, 1][POS[2, ]], theta[ , 2][POS[2, ]]) # connect to the parent node and child node with line.
 }
