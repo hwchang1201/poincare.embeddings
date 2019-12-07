@@ -23,11 +23,12 @@ dataLoader <- function(dataset_tree){
   entity <- unique(c(as.vector(as.matrix(data.tree::ToDataFrameNetwork(dataset_tree)["from"])), as.vector(as.matrix(data.tree::ToDataFrameNetwork(dataset_tree)["to"]))))
   # proxy : list that numerate on the name of nodes.
   proxy <- vector(mode = "list", length = length(entity))
-  names(proxy) <- entity
+  names(proxy) <- entity # name the proxy(1,..., N)
   for (i in 1:length(entity)){
     proxy[i] <- i
   }
-  # positive relation matrix
+  # make positive relation matrix, refer vignette.
+  # data.tree::ToDataFrameNetwork is making 2 columns that each row specifies the name of parent and child node
   POS <- matrix(rep(0, 2 * length(data.tree::ToDataFrameNetwork(dataset_tree)[,1])), nrow = 2)
   for (i in 1:2){
     k = 1
@@ -38,23 +39,25 @@ dataLoader <- function(dataset_tree){
   }
   NEG = matrix(, nrow = 2, ncol = 0)
 
-  # negative relation matrix
-  for (i in as.matrix(unique(data.tree::ToDataFrameNetwork(dataset_tree)['from']))){
-    neg_vec <- 1:length(entity)
+  # negative relation matrix , refer vignette.
+  for (i in as.matrix(unique(data.tree::ToDataFrameNetwork(dataset_tree)['from']))){ # iteration on the number of parent nodes.
+    neg_vec <- 1:length(entity) # entity 1:N vector.
+    # j = child node when i is parent node.
     for (j in as.matrix(data.tree::ToDataFrameNetwork(dataset_tree)['to'][data.tree::ToDataFrameNetwork(dataset_tree)['from'] == i])){
-      neg_vec <- neg_vec[!neg_vec == proxy[[j]]]
+      neg_vec <- neg_vec[!neg_vec == proxy[[j]]] # we erase positive node from 1:N vector one by one if node is related to the parent.
     }
-    parent <- i
+    parent <- i # naming parent
     while (length(parent) != 0){
-      if (sum(data.tree::ToDataFrameNetwork(dataset_tree)['to'] == parent) > 0){
+      if (sum(data.tree::ToDataFrameNetwork(dataset_tree)['to'] == parent) > 0){ # before we find all the child nodes of parent node.
         parent = data.tree::ToDataFrameNetwork(dataset_tree)['from'][data.tree::ToDataFrameNetwork(dataset_tree)['to'] == parent]
-        neg_vec <- neg_vec[!neg_vec == proxy[[parent]]]
+        #'parent' node of parent node is also related, so we should remove it from neg_vec.
+        neg_vec <- neg_vec[!neg_vec == proxy[[parent]]] # erase.
       }else{
         break
       }
     }
-    matrix(c(rep(proxy[[i]], length(neg_vec)), neg_vec), nrow = 2, byrow = TRUE)
-    NEG <- cbind(NEG, matrix(c(rep(proxy[[i]], length(neg_vec)), neg_vec), nrow = 2, byrow = TRUE))
+    matrix(c(rep(proxy[[i]], length(neg_vec)), neg_vec), nrow = 2, byrow = TRUE) # for every parent node, column bind.
+    NEG <- cbind(NEG, matrix(c(rep(proxy[[i]], length(neg_vec)), neg_vec), nrow = 2, byrow = TRUE)) # column bind.
 
 
 
